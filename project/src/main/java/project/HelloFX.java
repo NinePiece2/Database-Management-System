@@ -45,18 +45,25 @@ public class HelloFX extends Application{
 	
 	private Label welcome = new Label("Welcome to Shoppers Drugmart");
 	
-	private Label usernameLabel = new Label("Username:");
+	private Label emailLabel = new Label("Email:");
 	private Label passwordLabel = new Label("Password:");
-	private TextField usernameTextField = new TextField();
+	private TextField emailTextField = new TextField();
 	private TextField passwordTextField = new TextField();
+	
+	private Button customers = new Button ("Customers");
+	private Button employees = new Button ("Employees");
+	
+	private Button customerLoginButton = new Button ("Login");
 	
 	private Button loginButton = new Button ("Login");
 	
+	private Connection conn1 = null;
+	
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		Connection conn1 = null;
-
+	public void start(final Stage primaryStage) throws Exception {
+		
+		//Connection conn1 = null;
+		
         try {
             // registers Oracle JDBC driver - though this is no longer required
             // since JDBC 4.0, but added here for backward compatibility
@@ -70,20 +77,86 @@ public class HelloFX extends Application{
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            try {
-                if (conn1 != null && !conn1.isClosed()) {
-                    conn1.close();
-                }
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
+        } 
+        
         
         primaryStage.setTitle("Shoppers Drugmart POS"); // Sets up the main stage title, size and shows the main stage.
-        primaryStage.setScene(new Scene(mainMenu(), 400, 200));
+        primaryStage.setScene(new Scene(mainMenu(), 200, 200));
         primaryStage.show();
+        
+        customers.setOnAction( 
+        		new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                        primaryStage.setScene(new Scene(customerMenu(), 400, 200));
+                    }
+                } 
+            );
+        
+        customerLoginButton.setOnAction( 
+        		new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                    	String cusID = "0";
+                    	String password = "0";
+                    	
+                    	try (Statement stmt = conn1.createStatement()) {
+                    		String query = "SELECT CusID FROM customer WHERE email = '" + emailTextField.getText() + "'";
+                			ResultSet rs = stmt.executeQuery(query);
+                			
+                			while (rs.next()) {
+                				cusID = rs.getString("CusID");
+                				//System.out.println("CusID: " + cusID);
+                			}
+                			
+                			
+                			query = "SELECT password FROM cuslogin WHERE UserID = " + cusID;
+                			rs = stmt.executeQuery(query);
+                			
+                			while (rs.next()) {
+                				password = rs.getString("password");
+                				//System.out.println("Password: " + password);
+                			}
+                			
+                			} catch (SQLException ex) {
+                				System.out.println("SQL ERROR:" + ex.getErrorCode());
+                				ex.printStackTrace();
+                			}
+                    	
+                    	if(passwordTextField.getText().equals(password)) {                    	
+                    		primaryStage.setScene(new Scene(customers(), 400, 200));
+                    	}
+                    	else if (emailTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()){ // Shows the user an error if they did not enter a email or password.
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setContentText("Enter a email and/or a password.");
+                            alert.show();   
+                        }
+                    	else {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setContentText("INCORRECT Username and/or password.");
+                            alert.show(); 
+                    	}
+                    	
+                    	
+                    }
+                } 
+            );
+        
+        primaryStage.setOnCloseRequest(
+                new EventHandler<WindowEvent>() {
+                     @Override
+                     public void handle(WindowEvent e) {
+                    	 try {
+                             if (conn1 != null && !conn1.isClosed()) {
+                                 conn1.close();
+                             }
+
+                         } catch (SQLException ex) {
+                             ex.printStackTrace();
+                         }
+                    }  
+                }
+            );
 	}
 	
 	
@@ -94,17 +167,49 @@ public class HelloFX extends Application{
         temp.setPadding(new Insets(11, 12, 13, 14));
         temp.setHgap(5);
         temp.setVgap(5);
+        //temp.add(welcome, 0, 0);
+        //temp.add(usernameLabel, 0,1);
+        //temp.add(usernameTextField, 1, 1);
+        
+        //temp.add(passwordLabel, 0, 2);
+        //temp.add(passwordTextField, 1, 2);
+        
+        //temp.add(loginButton, 1, 3);
+        employees.setStyle("-fx-font-size: 2em; ");
+        customers.setStyle("-fx-font-size: 2em; ");
+        
+        temp.add(customers, 0, 1);
+        temp.add(employees, 0, 2);
+        
+        return temp;
+    }
+	
+	public GridPane customerMenu(){
+		GridPane temp = new GridPane();
+        temp.setAlignment(Pos.CENTER);
+        
         temp.add(welcome, 0, 0);
-        temp.add(usernameLabel, 0,1);
-        temp.add(usernameTextField, 1, 1);
+        temp.add(emailLabel, 0,1);
+        temp.add(emailTextField, 1, 1);
         
         temp.add(passwordLabel, 0, 2);
         temp.add(passwordTextField, 1, 2);
         
-        temp.add(loginButton, 1, 3);
+        temp.add(customerLoginButton, 1, 3);
         
         return temp;
-    }
+	}
+	
+	public GridPane customers(){
+		GridPane temp = new GridPane();
+        temp.setAlignment(Pos.CENTER);
+        
+        Label hello = new Label("Welcome to Shoppers Drugmart");
+        
+        temp.add(hello, 0, 0);
+        
+        return temp;
+	}
 	
 	
 	public static void main(String[] args) {
