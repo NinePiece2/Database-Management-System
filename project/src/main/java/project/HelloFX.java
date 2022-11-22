@@ -32,6 +32,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 
 import java.sql.Connection;
@@ -57,7 +58,15 @@ public class HelloFX extends Application{
 	
 	private Button loginButton = new Button ("Login");
 	
+	private HBox hb, hb2;
+	
 	private Connection conn1 = null;
+	
+	@SuppressWarnings("rawtypes")
+	private ObservableList<ObservableList> itemsTableData = FXCollections.observableArrayList();
+	
+	@SuppressWarnings("rawtypes")
+	private TableView tableview;
 	
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
@@ -167,14 +176,7 @@ public class HelloFX extends Application{
         temp.setPadding(new Insets(11, 12, 13, 14));
         temp.setHgap(5);
         temp.setVgap(5);
-        //temp.add(welcome, 0, 0);
-        //temp.add(usernameLabel, 0,1);
-        //temp.add(usernameTextField, 1, 1);
         
-        //temp.add(passwordLabel, 0, 2);
-        //temp.add(passwordTextField, 1, 2);
-        
-        //temp.add(loginButton, 1, 3);
         employees.setStyle("-fx-font-size: 2em; ");
         customers.setStyle("-fx-font-size: 2em; ");
         
@@ -200,11 +202,26 @@ public class HelloFX extends Application{
         return temp;
 	}
 	
+
 	public GridPane customers(){
 		GridPane temp = new GridPane();
+        Label hello = new Label("Welcome to Shoppers Drugmart");
+        
+        hb = new HBox();
+        hb2 = new HBox();
         temp.setAlignment(Pos.CENTER);
         
-        Label hello = new Label("Welcome to Shoppers Drugmart");
+        try (Statement stmt = conn1.createStatement()) {
+    		String query = "SELECT * FROM item";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			// For the table, make a class for each table and store the data in an observable arraylist of that class type and then use the normal column to make the table
+			 
+
+			} catch (SQLException ex) {
+				System.out.println("SQL ERROR:" + ex.getErrorCode());
+				ex.printStackTrace();
+			}
         
         temp.add(hello, 0, 0);
         
