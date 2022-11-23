@@ -10,7 +10,7 @@ public class Employee {
 	private int hoursWorked;
 	
 	
-	public Item(int empID, String empName, String empInfo, int wage, int hoursWorked) {
+	public Employee(int empID, String empName, String empInfo, int wage, int hoursWorked) {
 		this.empID = empID;
 		this.empName = empName;
 		this.empInfo = empInfo;
