@@ -32,10 +32,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
-<<<<<<< HEAD
 import javafx.beans.binding.StringExpression;
-=======
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
@@ -63,7 +60,6 @@ public class HelloFX extends Application{
 	private Button employees = new Button ("Employees");
 	
 	private Button customerLoginButton = new Button ("Login");
-<<<<<<< HEAD
 	private Button cusLogOut = new Button ("Logout");
 	private Button back = new Button("Back");
 	private Button checkout = new Button("Checkout");
@@ -86,20 +82,6 @@ public class HelloFX extends Application{
 	private String orderID;
 	private final String charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	private ObservableList<Item> boughtItems = FXCollections.observableArrayList();
-=======
-	
-	private Button loginButton = new Button ("Login");
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
-	
-	private HBox hb, hb2;
-	
-	private Connection conn1 = null;
-	
-	@SuppressWarnings("rawtypes")
-	private ObservableList<ObservableList> itemsTableData = FXCollections.observableArrayList();
-	
-	@SuppressWarnings("rawtypes")
-	private TableView tableview;
 	
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
@@ -121,7 +103,6 @@ public class HelloFX extends Application{
             ex.printStackTrace();
         } 
         
-<<<<<<< HEAD
         try (Statement stmt = conn1.createStatement()) {
     		String query = "SELECT * FROM item";
 			ResultSet rs = stmt.executeQuery(query);
@@ -143,8 +124,6 @@ public class HelloFX extends Application{
 			ex.printStackTrace();
 		}
         
-=======
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
         
         primaryStage.setTitle("Shoppers Drugmart POS"); // Sets up the main stage title, size and shows the main stage.
         primaryStage.setScene(new Scene(mainMenu(), 200, 200));
@@ -172,10 +151,6 @@ public class HelloFX extends Application{
                 			
                 			while (rs.next()) {
                 				cusID = rs.getString("CusID");
-<<<<<<< HEAD
-=======
-                				//System.out.println("CusID: " + cusID);
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
                 			}
                 			
                 			
@@ -184,7 +159,6 @@ public class HelloFX extends Application{
                 			
                 			while (rs.next()) {
                 				password = rs.getString("password");
-<<<<<<< HEAD
                 			}
                 			
                 			query = "SELECT name FROM customer WHERE CusID = " + cusID;
@@ -192,9 +166,6 @@ public class HelloFX extends Application{
                 			
                 			while (rs.next()) {
                 				cusName = rs.getString("name");
-=======
-                				//System.out.println("Password: " + password);
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
                 			}
                 			
                 			} catch (SQLException ex) {
@@ -202,15 +173,10 @@ public class HelloFX extends Application{
                 				ex.printStackTrace();
                 			}
                     	
-<<<<<<< HEAD
                     	if(passwordTextField.getText().equals(password)) {
                     		passwordTextField.clear(); 
                     		emailTextField.clear(); 
                     		primaryStage.setScene(new Scene(customers(), 700, 500));
-=======
-                    	if(passwordTextField.getText().equals(password)) {                    	
-                    		primaryStage.setScene(new Scene(customers(), 400, 200));
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
                     	}
                     	else if (emailTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()){ // Shows the user an error if they did not enter a email or password.
                             Alert alert = new Alert(AlertType.ERROR);
@@ -228,7 +194,6 @@ public class HelloFX extends Application{
                 } 
             );
         
-<<<<<<< HEAD
         back.setOnAction( 
         		new EventHandler<ActionEvent>() {
                     @Override
@@ -301,8 +266,6 @@ public class HelloFX extends Application{
                 } 
             );
         
-=======
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
         primaryStage.setOnCloseRequest(
                 new EventHandler<WindowEvent>() {
                      @Override
@@ -350,7 +313,6 @@ public class HelloFX extends Application{
         temp.add(passwordTextField, 1, 2);
         
         temp.add(customerLoginButton, 1, 3);
-<<<<<<< HEAD
         temp.add(back, 0, 3);
         
         return temp;
@@ -484,37 +446,9 @@ public class HelloFX extends Application{
         temp.add(welcome2, 0, 0);
         temp.add(purchase, 0, 1);
         temp.add(cusLogOut, 0, 2);
-=======
->>>>>>> 0265e24cf24a569f7056e7ec64f1a007f710442f
         
         return temp;
-	}
-	
-
-	public GridPane customers(){
-		GridPane temp = new GridPane();
-        Label hello = new Label("Welcome to Shoppers Drugmart");
-        
-        hb = new HBox();
-        hb2 = new HBox();
-        temp.setAlignment(Pos.CENTER);
-        
-        try (Statement stmt = conn1.createStatement()) {
-    		String query = "SELECT * FROM item";
-			ResultSet rs = stmt.executeQuery(query);
-			
-			// For the table, make a class for each table and store the data in an observable arraylist of that class type and then use the normal column to make the table
-			 
-
-			} catch (SQLException ex) {
-				System.out.println("SQL ERROR:" + ex.getErrorCode());
-				ex.printStackTrace();
-			}
-        
-        temp.add(hello, 0, 0);
-        
-        return temp;
-	}
+    }
 	
 	
 	public static void main(String[] args) {
