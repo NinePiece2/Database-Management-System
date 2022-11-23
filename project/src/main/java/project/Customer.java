@@ -1,7 +1,5 @@
 package project;
 
-import javafx.beans.property.*;
-
 public class Customer {
 	private int cusID;
 	private String name;
@@ -20,6 +18,7 @@ public class Customer {
 		this.address = address;
         this.pcCard = pcCard;
         this.savedCard = savedCard;
+	}
 
 
 	public int getCusID() {
@@ -27,7 +26,7 @@ public class Customer {
 	}
 
 	public void setCusID(int cusID) {
-		this.cusID = csID;
+		this.cusID = cusID;
 	}
 
 	public String getName() {
@@ -70,11 +69,11 @@ public class Customer {
 		this.pcCard = pcCard;
 	}
 
-    public String getSavedCard() {
+    public int getSavedCard() {
 		return savedCard;
 	}
 
-	public void setSavedCard(String savedCard) {
+	public void setSavedCard(int savedCard) {
 		this.savedCard = savedCard;
 	}
 

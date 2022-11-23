@@ -1,14 +1,7 @@
 package project;
 
-<<<<<<< HEAD
 public class EmpLogin {
 	private int userID;
-=======
-import javafx.beans.property.*;
-
-public class EmpLogin {
-	private String userID;
->>>>>>> 7003cf9d628bb95bc423a9f8e613558588742dfc
 	private String password;
 	private String email;
 	
@@ -21,19 +14,11 @@ public class EmpLogin {
 		
 	}
 
-<<<<<<< HEAD
 	public int getUserID() {
 		return userID;
 	}
 
 	public void setUserID(int userID) {
-=======
-	public String getUserID() {
-		return userID;
-	}
-
-	public void setUserID(String userID) {
->>>>>>> 7003cf9d628bb95bc423a9f8e613558588742dfc
 		this.userID = userID;
 	}
 

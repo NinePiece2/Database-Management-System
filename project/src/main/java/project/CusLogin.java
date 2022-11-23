@@ -3,24 +3,24 @@ package project;
 import javafx.beans.property.*;
 
 public class CusLogin {
-	private String userID;
+	private int userID;
 	private String password;
 	private String accountType;
 	
 	
 	
-	public EmpLogin(int userID, String password, String accountType) {
+	public CusLogin(int userID, String password, String accountType) {
 		this.userID = userID;
 		this.password = password;
 		this.accountType = accountType;
 		
 	}
 
-	public String getUserID() {
+	public int getUserID() {
 		return userID;
 	}
 
-	public void setUserID(String userID) {
+	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 
