@@ -4,13 +4,13 @@ public class Customer {
 	private int cusID;
 	private String name;
 	private String email;
-	private	int phoneNum;
+	private	String phoneNum;
 	private String address;
     private String pcCard;
-    private int savedCard;
+    private String savedCard;
 	
 	
-	public Customer(int cusID, String name, String email, int phoneNum, String address, String pcCard, int savedCard) {
+	public Customer(int cusID, String name, String email, String phoneNum, String address, String pcCard, String savedCard) {
 		this.cusID = cusID;
 		this.name = name;
 		this.email = email;
@@ -45,11 +45,11 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
@@ -61,21 +61,27 @@ public class Customer {
 		this.address = address;
 	}
 
-    public String getPCCard() {
+
+	public String getPcCard() {
 		return pcCard;
 	}
 
-	public void setPCCard(String pcCard) {
+
+	public void setPcCard(String pcCard) {
 		this.pcCard = pcCard;
 	}
 
-    public int getSavedCard() {
+
+	public String getSavedCard() {
 		return savedCard;
 	}
 
-	public void setSavedCard(int savedCard) {
+
+	public void setSavedCard(String savedCard) {
 		this.savedCard = savedCard;
 	}
+
+ 
 
 	
 }	

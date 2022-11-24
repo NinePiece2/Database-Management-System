@@ -1,16 +1,14 @@
 package project;
 
-import javafx.beans.property.*;
-
 public class Employee {
 	private int empID;
 	private String empName;
 	private String empInfo;
-	private	int wage;
+	private	double wage;
 	private int hoursWorked;
 	
 	
-	public Employee(int empID, String empName, String empInfo, int wage, int hoursWorked) {
+	public Employee(int empID, String empName, String empInfo, double wage, int hoursWorked) {
 		this.empID = empID;
 		this.empName = empName;
 		this.empInfo = empInfo;
@@ -42,11 +40,11 @@ public class Employee {
 		this.empInfo = empInfo;
 	}
 
-	public int getWage() {
+	public double getWage() {
 		return wage;
 	}
 
-	public void setRating(int wage) {
+	public void setRating(double wage) {
 		this.wage = wage;
 	}
 

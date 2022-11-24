@@ -1,15 +1,13 @@
 package project;
 
-import javafx.beans.property.*;
-
 public class CusLogin {
 	private int userID;
 	private String password;
-	private String accountType;
+	private char accountType;
 	
 	
 	
-	public CusLogin(int userID, String password, String accountType) {
+	public CusLogin(int userID, char accountType,  String password) {
 		this.userID = userID;
 		this.password = password;
 		this.accountType = accountType;
@@ -32,11 +30,11 @@ public class CusLogin {
 		this.password = password;
 	}
 
-	public String getAccountType() {
+	public char getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(String email) {
+	public void setAccountType(char accountType) {
 		this.accountType = accountType;
 	}
 
