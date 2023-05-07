@@ -1,4 +1,4 @@
-package project;
+package dbms;
 
 public class Customer {
 	private int cusID;

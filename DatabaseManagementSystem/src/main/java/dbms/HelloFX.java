@@ -1,4 +1,4 @@
-package project;
+package dbms;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -47,6 +47,15 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 public class HelloFX extends Application{
 	
+	/*
+	 * This first section of the code has all of the variable initilization for the support objects 
+	 *  that will be used to create the GUI there are many buttons, labels and text fields that 
+	 *  would need to be accessable by the user.
+	 * 
+	 * Following this there are Observable Lists which are used by the tables in the GUI to show
+	 * 	information to the user.
+	 */
+
 	private Label welcome = new Label("Welcome to Shoppers Drugmart");
 	private Label welcome2 = new Label("Welcome to Shoppers Drugmart valued Employee");
 	
@@ -71,6 +80,7 @@ public class HelloFX extends Application{
 	private Button cusLogOut = new Button ("Logout");
 	private Button empLogOut = new Button ("Logout");
 	private Button back = new Button("Back");
+	private Button cancel = new Button("Cancel");
 	private Button checkout = new Button("Checkout");
 	private Button backEmp = new Button("Back");
 		
@@ -141,8 +151,8 @@ public class HelloFX extends Application{
 	private Button buy = new Button("Buy");
 	
 	private HBox hb, hb2, hb3;
-	
-	private Connection conn1 = null;
+	// Database connection
+	private static Connection conn1 = null;
 	
 	@SuppressWarnings("rawtypes")
 	private ObservableList<Item> itemTableData = FXCollections.observableArrayList();
@@ -176,30 +186,25 @@ public class HelloFX extends Application{
 	private final String charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	private ObservableList<Item> boughtItems = FXCollections.observableArrayList();
 	
+	/*
+	 * This method is an override of the start method from JavaFX where primaryStage is the main stage
+	 *  and to update the current scene this would have to be updated.
+	 */
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
-		
-		//Connection conn1 = null;
-		
-        try {
-            // registers Oracle JDBC driver - though this is no longer required
-            // since JDBC 4.0, but added here for backward compatibility
-            Class.forName("oracle.jdbc.OracleDriver");
-            String dbURL1 = "jdbc:oracle:thin:system/RomitSagu@localhost:1521:xe";
-            conn1 = DriverManager.getConnection(dbURL1);
-            if (conn1 != null) {
-                System.out.println("Connected with connection #1");
-            }
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }    
+				
+        
         
         primaryStage.setTitle("Shoppers Drugmart POS"); // Sets up the main stage title, size and shows the main stage.
         primaryStage.setScene(new Scene(mainMenu(), 200, 200));
         primaryStage.show();
         
+
+		/*
+		 * The following lines of code are the results of what happens when each button is pressed in the application
+		 *  this needs to be in the start method so that if the scene needs to be changed it can be done.
+		 */
+
         customers.setOnAction( 
         		new EventHandler<ActionEvent>() {
                     @Override
@@ -283,6 +288,16 @@ public class HelloFX extends Application{
                     @Override
                     public void handle(ActionEvent e) {
                     	primaryStage.setScene(new Scene(customerMenu(), 400, 200));
+                    }
+                } 
+            );
+        
+        cancel.setOnAction( 
+        		new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                    	boughtItems.clear();
+                    	primaryStage.setScene(new Scene(customers(), 700, 500));
                     }
                 } 
             );
@@ -1170,7 +1185,10 @@ public class HelloFX extends Application{
             );
 	}
 	
-	
+	/*
+	 * This method is used to return the elements that would be needed in the MainMenu of the
+	 *  application.
+	 */
 	public GridPane mainMenu(){ // returns the mainMenu elements
         GridPane temp = new GridPane();
         temp.setAlignment(Pos.CENTER);
@@ -1188,6 +1206,10 @@ public class HelloFX extends Application{
         return temp;
     }
 	
+	/*
+	 * This method is used to return the elements that would be needed in the customer menu 
+	 *  of the application where a user would be expected to login.
+	 */
 	public GridPane customerMenu(){
 		GridPane temp = new GridPane();
         temp.setAlignment(Pos.CENTER);
@@ -1205,7 +1227,10 @@ public class HelloFX extends Application{
         return temp;
 	}
 	
-
+	/*
+	 * This method is used to return the elements that would be needed after a customer has
+	 *  been logged in to the application and would like to buy items.
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GridPane customers(){
 		GridPane temp = new GridPane();
@@ -1331,8 +1356,13 @@ public class HelloFX extends Application{
         return temp;
 	}
 	
+	/*
+	 * This method is used to return the elements that would be needed after a customer has
+	 *  selected the items that they would wish to buy.
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GridPane buyScreen(){
+		hb = new HBox();
 		GridPane temp = new GridPane();
 		DecimalFormat decFor = new DecimalFormat("###.##");
 		temp.setPadding(new Insets(11, 12, 13, 14));
@@ -1368,10 +1398,17 @@ public class HelloFX extends Application{
         temp.add(items, 0, 2);
         temp.add(totalCostLabel, 0, 3);
         temp.add(totalCostTaxLabel, 0, 4);
-        temp.add(checkout, 0, 5);
+        
+        hb.getChildren().addAll(checkout, cancel);
+        
+        temp.add(hb, 0, 5);
         return temp;
 	}
 	
+	/*
+	 * This method is used to return the elements that would be needed after a customer has
+	 *  confirmed the items they wish to buy.
+	 */
 	public GridPane checkoutScreen(){ // returns the mainMenu elements
         GridPane temp = new GridPane();
         //temp.setAlignment(Pos.CENTER);
@@ -1390,6 +1427,10 @@ public class HelloFX extends Application{
         return temp;
     }
 	
+	/*
+	 * This method is used to return the elements that would be needed after an employee has
+	 *  seclect to view the employee menu where they would be expected to login.
+	 */
 	public GridPane employeeMenu(){ 
 		GridPane temp = new GridPane();
         temp.setAlignment(Pos.CENTER);
@@ -1411,6 +1452,10 @@ public class HelloFX extends Application{
         return temp;
     }
 	
+	/*
+	 * This method is used to return the elements that would be needed after an employee has
+	 *  
+	 */
 	public GridPane employees(){
 		GridPane temp = new GridPane();
         //temp.setAlignment(Pos.CENTER);
@@ -3145,7 +3190,27 @@ public class HelloFX extends Application{
 	
 	
 	public static void main(String[] args) {
-        launch(args);
+		try {
+            // registers Oracle JDBC driver - though this is no longer required
+            // since JDBC 4.0, but added here for backward compatibility
+            Class.forName("oracle.jdbc.OracleDriver");
+            //String dbURL1 = "jdbc:oracle:thin:system/RomitSagu@localhost:1521:xe";
+            String dbURL1 = args[0];
+            conn1 = DriverManager.getConnection(dbURL1);
+            if (conn1 != null) {
+                System.out.println("Connected with connection #1");
+            }
+		} catch (Exception ex) {
+        	System.out.println("Make sure correct connection was entered in launch.bat and that the database is turned on.");
+        	ex.printStackTrace(); 
+        	System.out.println("Edit your arguments in launch.bat");
+
+        	while(true){
+        		
+        	}
+        }
+		
+		launch(args);
     }
 	
 }

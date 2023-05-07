@@ -1,4 +1,4 @@
-package project;
+package dbms;
 
 public class Purchase {
 	private String invoiceID;

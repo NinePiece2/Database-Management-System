@@ -1,4 +1,4 @@
-package project;
+package dbms;
 
 import javafx.beans.property.*;
 

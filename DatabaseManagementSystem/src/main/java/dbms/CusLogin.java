@@ -1,4 +1,4 @@
-package project;
+package dbms;
 
 public class CusLogin {
 	private int userID;
