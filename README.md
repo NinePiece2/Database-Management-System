@@ -85,7 +85,7 @@ From this screen the DBA/Employee can login using the email and password of an E
 
 [<img src=resources/employee_login.png height=225>](resources/employee_login.png)
 
-The default login for the only local user is Email: Admin and Password: Admin. After this is entered the DBA is met with an error message saying that the database has not yet been created and that error will persist for any tab that the DBA tries to enter:
+The default login for the only ```local user``` is ```Email: Admin``` and ```Password: Admin```. After this is entered the DBA is met with an error message saying that the database has not yet been created and that error will persist for any tab that the DBA tries to enter:
 
 [<img src=resources/employee_menu.png height=225>](resources/employee_menu.png)
 
