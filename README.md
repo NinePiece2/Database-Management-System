@@ -109,8 +109,4 @@ The DBA can then also drop the tables:
 
 [<img src=resources/employee_drop_tables.png height=225>](resources/employee_drop_tables.png)
 
-## Conclusion
-
-To conclude the application was created to manage a database that would act as a ```Point of Sale System``` for a store such as Shoppers Drugmart. There are two parts of the application one for the ```Database Administrator (DBA)``` and a second for ```Customers``` who wish to purchase items. The application uses ```Oracle 21c``` and a ```JDBC``` driver that works to connect the application to a database. A production ```release``` is available to download and will work as documented after changing the ```command line arguments``` in the ```launch.bat``` file.
-
-The final release was packaged using Eclipse’s inbuilt export tool and was exported as a ```.jar``` file.
+## Modifications
