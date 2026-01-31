@@ -1,5 +1,9 @@
 # Database Management System
 
+## NOTE
+
+This project has been archived.
+
 ## Table of Contents
 - [Database Management System](#database-management-system)
   - [Table of Contents](#table-of-contents)
